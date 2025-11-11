@@ -23,7 +23,7 @@ API REST para gestionar el flujo de **ventas de muebles a medida** y el **seguim
 
 ---
 
-CÓMO LEVANTAR EL SISTEMA
+## ¿CÓMO LEVANTAR EL SISTEMA?
 
 🔥 BACKEND (Puerto 3000):
 --------------------------
