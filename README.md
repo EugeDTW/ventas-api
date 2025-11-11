@@ -60,8 +60,8 @@ Base URL: `/api`
 ### 2) **Servicios extra sobre Ventas (reportes)**
 - `GET /api/proximas-instalaciones/dias`
   - Devuelve ventas cuya `fechaInstalacion` ocurre dentro de los próximos **N días** (por defecto 7).
-- `GET /api/ventas/atrasadas?campo=fechaInstalacion`
-  - Devuelve ventas cuyo **hito** indicado en `campo` está **vencido** o en **demora**.
+- `GET /api/instalaciones-atrasadas`
+  - Devuelve ventas cuyo `fechaInstalacion` es anterior a la fecha actual y estado sea distinto de **instalada**.
 
 ---
 
