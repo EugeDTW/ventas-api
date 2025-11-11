@@ -19,7 +19,19 @@ API REST para gestionar el flujo de **ventas de muebles a medida** y el **seguim
 - **Persistencia:** En memoria (arrays/objetos). Se cargan **datos de prueba** automáticamente.
 - **Testing:** Jest + Supertest (tests de endpoints), y/o colección para Postman/Insomnia.
 
-**Justificación:** Reducimos complejidad (sin DB ni auth) para enfocarnos en el diseño REST, manejo de HTTP y buenas prácticas. 
+**Justificación:** Reducimos complejidad (sin DB ni auth) para enfocarnos en el diseño REST, manejo de HTTP y buenas prácticas.
+
+---
+
+CÓMO LEVANTAR EL SISTEMA
+
+🔥 BACKEND (Puerto 3000):
+--------------------------
+
+1) npm install
+2) node index.js
+
+El servidor estará corriendo en: http://localhost:3000
 
 ---
 
