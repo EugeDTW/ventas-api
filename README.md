@@ -3,7 +3,7 @@
 > **Trabajo Práctico – Arquitectura Web**  
 > **Estado:** Implementación inicial (persistencia en memoria)
 
-##📌 Descripción
+## 📌 Descripción
 
 API REST para gestionar el flujo de ventas de muebles a medida y el seguimiento de instalaciones.
 
