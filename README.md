@@ -1,28 +1,30 @@
-Gestión de Ventas e Instalaciones – API REST
+# Gestión de Ventas e Instalaciones – API REST
 
-Trabajo Práctico – Arquitectura Web
-Estado: Implementación inicial (persistencia en memoria)
+> **Trabajo Práctico – Arquitectura Web**  
+> **Estado:** Implementación inicial (persistencia en memoria)
 
-📌 Descripción
+##📌 Descripción
 
 API REST para gestionar el flujo de ventas de muebles a medida y el seguimiento de instalaciones.
 
 Incluye:
 
-CRUD completo de Ventas.
+- CRUD completo de Ventas.
 
-Servicios de reportes sobre fechas de instalación.
+- Servicios de reportes sobre fechas de instalación.
 
-Persistencia en memoria con datos semilla.
+P- ersistencia en memoria con datos semilla.
 
-Backend en Node.js + Express.
+- Backend en Node.js + Express.
 
-Frontend opcional (HTML + JS simple).
+- Frontend (HTML + JS simple).
 
 Ideal para pruebas con Postman / Insomnia / curl.
 Sin base de datos por el momento.
 
-🧱 Arquitectura y tecnologías
+---
+
+## 🧱 Arquitectura y tecnologías
 
 Backend: Node.js + Express
 
@@ -40,27 +42,27 @@ Frontend: Vanilla JavaScript
 
 Puerto por defecto: 3000
 
-🚀 Cómo levantar el backend
-npm install
-node index.js
+---
+
+## 🚀 ¿Cómo levantar el backend?
+1) npm install
+2) node index.js
 
 
 Servidor disponible en:
 
 http://localhost:3000
 
-🌐 Frontend (opcional)
+##🌐 Frontend (opcional)
 
 Con el backend corriendo
 
-Abrir el archivo:
+Abrir el archivo: /FrontEnd/index.html
+Se ejecuta directamente en el navegador (Chrome, Firefox, etc.).
 
-/FrontEnd/index.html
+---
 
-
-📌 Se ejecuta directamente en el navegador (Chrome, Firefox, etc.).
-
-📚 Modelo de datos: Venta
+## 📚 Modelo de datos: Venta
 {
   "id": "1",
   "cliente": "Juana Pérez",
@@ -86,7 +88,7 @@ Base URL:
 
 http://localhost:3000/api
 
-🔧 1) CRUD de Ventas
+## 🔧 1) CRUD de Ventas
 ✅ GET /api/ventas
 
 Lista todas las ventas.
@@ -147,7 +149,7 @@ Elimina una venta.
 
 { "mensaje": "venta no encontrada" }
 
-📊 2) Servicios extra (reportes)
+## 📊 2) Servicios extra (reportes)
 🔮 GET /api/ventas/proximas-instalaciones/:dias?
 
 Devuelve ventas con instalación dentro de los próximos N días.
@@ -177,7 +179,7 @@ estado !== "instalada"
 
 200 OK → array de ventas atrasadas
 
-⚠️ Manejo de errores (actual)
+## ⚠️ Manejo de errores (actual)
 
 Formato simple:
 
@@ -196,7 +198,7 @@ Códigos usados:
 
 Actualmente no hay validaciones avanzadas ni formato de error estándar.
 
-📦 Estructura del proyecto
+## 📦 Estructura del proyecto
 /api
   index.js
 /FrontEnd
@@ -204,7 +206,7 @@ Actualmente no hay validaciones avanzadas ni formato de error estándar.
 README.md
 package.json
 
-🛠️ Mejoras futuras sugeridas
+## 🛠️ Mejoras futuras sugeridas
 
 Estandarizar respuestas ({ data, error })
 
