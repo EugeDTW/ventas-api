@@ -35,6 +35,11 @@ El servidor estará corriendo en: http://localhost:3000
 
 ---
 
+## ¿CÓMO UTILIZAR EL FRONT?
+
+Una vez que el servidor este corriendo se debe: 
+1) Abrir index.html (ubicado en la carpeta FrontEnd) con algún browser (Ej. Chrome, Firefox, etc.)  
+
 ## 📚 Modelo (resumen)
 - **Venta** `{ id, cliente, vendedor, instalador, fechas..., estado, notas }`
   - Fechas relevantes: `fechaMedicion`, `fechaAprobacionCliente`, `fechaPedidoFabrica`, `fechaAvisoInstalador`, `fechaEntregaCliente`, `fechaInstalacion`.
