@@ -1,61 +1,66 @@
-# Gestión de Ventas e Instalaciones – API REST
+Gestión de Ventas e Instalaciones – API REST
 
-> **Trabajo Práctico – Arquitectura Web**  
-> **Estado:** Diseño inicial
+Trabajo Práctico – Arquitectura Web
+Estado: Implementación inicial (persistencia en memoria)
 
-## 📌 Descripción
-API REST para gestionar el flujo de **ventas de muebles a medida** y el **seguimiento de instalación**. El alcance de la primera entrega se centra en:
-- CRUD básico de **Ventas** (4 endpoints principales).
-- Dos servicios de **reporte/seguimiento** adicionales sobre ventas.
-- Persistencia **en memoria** con **datos semilla** al iniciar (sin base de datos real). 
+📌 Descripción
 
-> El frontend es opcional y se abordará al final si el tiempo lo permite. La API se puede probar con curl/Postman/Insomnia.
+API REST para gestionar el flujo de ventas de muebles a medida y el seguimiento de instalaciones.
 
----
+Incluye:
 
-## 🧱 Arquitectura y elecciones técnicas
-- **Backend:** Node.js + Express (REST Nivel 2).
-- **Lenguaje:** JavaScript.
-- **Persistencia:** En memoria (arrays/objetos). Se cargan **datos de prueba** automáticamente.
-- **FrontEnd:** Vanilla JavaScript.
-- 
----
+CRUD completo de Ventas.
 
-## ¿CÓMO LEVANTAR EL SISTEMA?
+Servicios de reportes sobre fechas de instalación.
 
-🔥 BACKEND (Puerto 3000):
---------------------------
+Persistencia en memoria con datos semilla.
 
-1) npm install
-2) node index.js
+Backend en Node.js + Express.
 
-El servidor estará corriendo en: http://localhost:3000
+Frontend opcional (HTML + JS simple).
 
----
+Ideal para pruebas con Postman / Insomnia / curl.
+Sin base de datos por el momento.
 
-## ¿CÓMO UTILIZAR EL FRONT?
+🧱 Arquitectura y tecnologías
 
-Una vez que el servidor este corriendo se debe: 
-1) Abrir index.html (ubicado en la carpeta FrontEnd) con algún browser (Ej. Chrome, Firefox, etc.)  
+Backend: Node.js + Express
 
-## 📚 Modelo (resumen)
-- **Venta** `{ id, cliente, vendedor, instalador, fechas..., estado, notas }`
-  - Fechas relevantes: `fechaMedicion`, `fechaAprobacionCliente`, `fechaPedidoFabrica`, `fechaAvisoInstalador`, `fechaEntregaCliente`, `fechaInstalacion`.
-  - `estado` instalada o pendiente.
+Lenguaje: JavaScript (CommonJS)
 
----
+Middlewares:
 
-## 🔗 Endpoints 
-Base URL: `/api`
+body-parser (JSON / urlencoded)
 
-### 1) **Ventas (CRUD)**
-- `GET /api/ventas` → **Listar** ventas.
-- `POST /api/ventas` → **Crear** venta.
-- `PUT /api/ventas/:id` → **Actualizar** venta.
-- `DELETE /api/ventas/:id` → **Borrar** venta.
+cors
 
-**Ejemplo de Venta**
-```json
+Persistencia: En memoria (vector dentro de index.js)
+
+Frontend: Vanilla JavaScript
+
+Puerto por defecto: 3000
+
+🚀 Cómo levantar el backend
+npm install
+node index.js
+
+
+Servidor disponible en:
+
+http://localhost:3000
+
+🌐 Frontend (opcional)
+
+Con el backend corriendo
+
+Abrir el archivo:
+
+/FrontEnd/index.html
+
+
+📌 Se ejecuta directamente en el navegador (Chrome, Firefox, etc.).
+
+📚 Modelo de datos: Venta
 {
   "id": "1",
   "cliente": "Juana Pérez",
@@ -63,211 +68,150 @@ Base URL: `/api`
   "instalador": "Pedro Ruiz",
   "fechaMedicion": "2025-10-05",
   "fechaAprobacionCliente": "2025-10-10",
-  "fechaPedidoFabrica": "2025-10-12",
+  "fechaPedidoFabrica": "2025-08-12",
   "fechaAvisoInstalador": "2025-10-15",
-  "fechaEntregaCliente": "2025-10-25",
-  "fechaInstalacion": "2025-10-28",
+  "fechaEntregaCliente": "2025-10-05",
+  "fechaInstalacion": "2025-11-10",
   "estado": "instalada",
   "notas": "Cocina en L blanca"
 }
-```
 
-### 2) **Servicios extra sobre Ventas (reportes)**
-- `GET /api/proximas-instalaciones/dias`
-  - Devuelve ventas cuya `fechaInstalacion` ocurre dentro de los próximos **N días** (por defecto 7).
-- `GET /api/instalaciones-atrasadas`
-  - Devuelve ventas cuyo `fechaInstalacion` es anterior a la fecha actual y estado sea distinto de **instalada**.
 
----
+📌 Fechas en formato YYYY-MM-DD
+📌 Estado puede ser "pendiente" o "instalada"
 
-## 🔍 Contratos (requests/responses de ejemplo)
+🔗 Endpoints
 
-### `GET /api/ventas`
-**200 OK**
-```json
-[
-  {"id":"v-001","cliente":"Juana Pérez","vendedor":"Carlos López","estado":"produccion"},
-  {"id":"v-002","cliente":"Ana Gómez","vendedor":"Marcos Díaz","estado":"en-entrega"}
-]
-```
+Base URL:
 
-### `POST /api/ventas`
-**Request**
-```json
+http://localhost:3000/api
+
+🔧 1) CRUD de Ventas
+✅ GET /api/ventas
+
+Lista todas las ventas.
+
+200 OK → devuelve un array completo de ventas.
+
+✅ GET /api/ventas/:id
+
+Busca una venta por ID.
+
+200 OK
+
+404 Not Found
+
+{ "mensaje": "venta no encontrada" }
+
+✅ POST /api/ventas
+
+Crea una nueva venta.
+El backend genera el id automáticamente.
+
+Request ejemplo:
+
 {
   "cliente": "Ana Gómez",
   "vendedor": "Marcos Díaz",
+  "instalador": "Pablo Ruiz",
   "fechaMedicion": "2025-10-10",
-  "notas": "Placard dormitorio"
-}
-```
-**201 Created**
-```json
-{
-  "id": "1",
-  "cliente": "Ana Gómez",
-  "vendedor": "Marcos Díaz",
-  "fechaMedicion": "2025-10-10",
+  "fechaInstalacion": "2025-11-20",
   "estado": "pendiente",
   "notas": "Placard dormitorio"
 }
-```
 
-### `PUT /api/ventas/:id`
-**Request**
-```json
+
+201 Created
+
+{ "mensaje": "venta creada" }
+
+✅ PUT /api/ventas/:id
+
+Reemplaza completamente una venta existente.
+
+📌 El body se inserta tal cual, por lo que debe incluir el id.
+
+200 OK → Devuelve el body enviado
+404 Not Found
+
+✅ DELETE /api/ventas/:id
+
+Elimina una venta.
+
+200 OK
+
+{ "mensaje": "venta borrada" }
+
+
+404 Not Found
+
+{ "mensaje": "venta no encontrada" }
+
+📊 2) Servicios extra (reportes)
+🔮 GET /api/ventas/proximas-instalaciones/:dias?
+
+Devuelve ventas con instalación dentro de los próximos N días.
+Si no se envía parámetro → dias = 7.
+
+Filtros aplicados internamente:
+
+0 < fechaInstalacion - hoy < dias
+
+estado === "pendiente"
+
+Ejemplos:
+
+GET /api/ventas/proximas-instalaciones
+GET /api/ventas/proximas-instalaciones/15
+
+
+200 OK → array de ventas
+
+⏰ GET /api/ventas/instalaciones-atrasadas
+
+Devuelve ventas donde:
+
+fechaInstalacion < hoy
+
+estado !== "instalada"
+
+200 OK → array de ventas atrasadas
+
+⚠️ Manejo de errores (actual)
+
+Formato simple:
+
 {
-  "fechaPedidoFabrica": "2025-10-12",
-  "estado": "instalada"
+  "mensaje": "venta no encontrada"
 }
-```
-**200 OK**
-```json
-{
-  "id": "1",
-  "cliente": "Ana Gómez",
-  "vendedor": "Marcos Díaz",
-  "estado": "instalada",
-  "fechaPedidoFabrica": "2025-10-12"
-}
-```
 
-### `DELETE /api/ventas/:id`
-**200 Venta borrada**
 
----
+Códigos usados:
 
-### `GET /api/ventas/proximas-instalaciones?dias=7`
-**200 OK**
-```json
-{
-  "dias": 7,
-  "items": [
-    {
-      "id": "v-003",
-      "cliente": "Juana Pérez",
-      "fechaInstalacion": "2025-11-02",
-      "estado": "asignada-instalador"
-    }
-  ]
-}
-```
+200 — OK
 
-### `GET /api/ventas/atrasadas?campo=fechaInstalacion`
-**200 OK**
-```json
-{
-  "campo": "fechaInstalacion",
-  "items": [
-    { "id": "v-007", "cliente": "Carlos López", "fechaInstalacion": "2025-10-10", "estado": "en-entrega" }
-  ]
-}
-```
+201 — Created
 
----
+404 — Not Found
 
-## ⚠️ Errores (formato estándar)
-```json
-{
-  "error": {
-    "code": "VALIDATION_ERROR",
-    "message": "cliente es requerido",
-    "details": [{"field":"cliente","issue":"required"}]
-  }
-}
-```
-- `400` (validación), `404` (no encontrado), `409` (conflicto), `500` (error inesperado).
+Actualmente no hay validaciones avanzadas ni formato de error estándar.
 
----
+📦 Estructura del proyecto
+/api
+  index.js
+/FrontEnd
+  index.html
+README.md
+package.json
 
-## ▶️ Cómo ejecutar
-1. Requisitos: Node 18+.
-2. Instalar dependencias:
-```bash
-npm install
-```
-3. Ejecutar en desarrollo:
-```bash
-npm run dev
-```
-4. Producción/simple:
-```bash
-npm start
-```
+🛠️ Mejoras futuras sugeridas
 
-El servidor por defecto levantará en `http://localhost:3000` con datos semilla cargados.
+Estandarizar respuestas ({ data, error })
 
----
+Validaciones con Joi / Zod
 
-## 🧪 Cómo probar (curl / Postman)
-```bash
-# Listar ventas
-curl -s http://localhost:3000/api/ventas | jq
+División en rutas + controladores
 
-# Crear venta
-curl -s -X POST http://localhost:3000/api/ventas \
-  -H "Content-Type: application/json" \
-  -d '{"cliente":"Ana Gómez","vendedor":"Marcos Díaz","fechaMedicion":"2025-10-10","notas":"Placard dormitorio"}' | jq
+Documentación Swagger/OpenAPI
 
-# Actualizar venta
-curl -s -X PUT http://localhost:3000/api/ventas/v-010 \
-  -H "Content-Type: application/json" \
-  -d '{"fechaPedidoFabrica":"2025-10-12","estado":"produccion"}' | jq
-
-# Borrar venta
-curl -s -X DELETE http://localhost:3000/api/ventas/v-010 -i
-
-# Próximas instalaciones (7 días)
-curl -s "http://localhost:3000/api/ventas/proximas-instalaciones?dias=7" | jq
-
-# Ventas atrasadas por fechaInstalacion
-curl -s "http://localhost:3000/api/ventas/atrasadas?campo=fechaInstalacion" | jq
-```
-
----
-
-## 🗂️ Estructura del repo (prevista)
-```
-/ (raíz)
-├─ package.json
-├─ README.md
-├─ src/
-│  ├─ app.js
-│  ├─ server.js
-│  ├─ data/
-│  │  ├─ db.js        # arrays en memoria
-│  │  └─ seed.js      # datos semilla (ventas)
-│  ├─ routes/
-│  │  └─ ventas.routes.js
-│  ├─ controllers/
-│  │  └─ ventas.controller.js
-│  ├─ services/
-│  │  └─ ventas.service.js  # lógica de CRUD, proximidad/atraso y cálculo de estado
-│  └─ middleware/
-│     └─ error-handler.js
-└─ tests/
-   ├─ ventas.crud.test.js
-   └─ ventas-reportes.test.js
-```
-
----
-
-## 🧪 Testing
-- **Automatizado:** Jest + Supertest (endpoints). Casos mínimos:
-  - Crear venta (201), validar requeridos (400), actualizar (200), borrar (204), 404 para id inexistente.
-  - Reportes: proximas-instalaciones devuelve items en ventana; atrasadas según `campo`.
-- **Manual:** Colección Postman/Insomnia (se incluirá en `/docs/postman_collection.json`).
-
----
-
-## 📝 Licencia
-MIT.
-
----
-
-## 📍 Roadmap corto
-- [ ] Implementar endpoints definidos.
-- [ ] Agregar filtros en `GET /api/ventas` (`?cliente=` o `?vendedor=`).
-- [ ] Documentación Swagger (opcional).
-- [ ] Front minimal (tabla ventas + dos reportes).
-
+Migrar persistencia a base de datos (PostgreSQL / MongoDB)
