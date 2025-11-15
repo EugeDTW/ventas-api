@@ -14,13 +14,11 @@ API REST para gestionar el flujo de **ventas de muebles a medida** y el **seguim
 ---
 
 ## 🧱 Arquitectura y elecciones técnicas
-- **Backend:** Node.js + Express (REST Nivel 2, simple y estándar del ecosistema JS).
-- **Lenguaje:** JavaScript (recomendado por la cátedra; facilita pruebas con herramientas del ecosistema Node).
+- **Backend:** Node.js + Express (REST Nivel 2).
+- **Lenguaje:** JavaScript.
 - **Persistencia:** En memoria (arrays/objetos). Se cargan **datos de prueba** automáticamente.
-- **Testing:** Jest + Supertest (tests de endpoints), y/o colección para Postman/Insomnia.
-
-**Justificación:** Reducimos complejidad (sin DB ni auth) para enfocarnos en el diseño REST, manejo de HTTP y buenas prácticas.
-
+- **FrontEnd:** Vanilla JavaScript.
+- 
 ---
 
 ## ¿CÓMO LEVANTAR EL SISTEMA?
@@ -43,11 +41,11 @@ Una vez que el servidor este corriendo se debe:
 ## 📚 Modelo (resumen)
 - **Venta** `{ id, cliente, vendedor, instalador, fechas..., estado, notas }`
   - Fechas relevantes: `fechaMedicion`, `fechaAprobacionCliente`, `fechaPedidoFabrica`, `fechaAvisoInstalador`, `fechaEntregaCliente`, `fechaInstalacion`.
-  - `estado` puede derivarse a partir de las fechas (p. ej. `produccion`, `asignada-instalador`, `en-entrega`, `instalada`, etc.).
+  - `estado` instalada o pendiente.
 
 ---
 
-## 🔗 Endpoints (alcance de esta entrega)
+## 🔗 Endpoints 
 Base URL: `/api`
 
 ### 1) **Ventas (CRUD)**
@@ -59,7 +57,7 @@ Base URL: `/api`
 **Ejemplo de Venta**
 ```json
 {
-  "id": "v-001",
+  "id": "1",
   "cliente": "Juana Pérez",
   "vendedor": "Carlos López",
   "instalador": "Pedro Ruiz",
@@ -106,11 +104,11 @@ Base URL: `/api`
 **201 Created**
 ```json
 {
-  "id": "v-010",
+  "id": "1",
   "cliente": "Ana Gómez",
   "vendedor": "Marcos Díaz",
   "fechaMedicion": "2025-10-10",
-  "estado": "medicion-pendiente",
+  "estado": "pendiente",
   "notas": "Placard dormitorio"
 }
 ```
@@ -120,22 +118,22 @@ Base URL: `/api`
 ```json
 {
   "fechaPedidoFabrica": "2025-10-12",
-  "estado": "produccion"
+  "estado": "instalada"
 }
 ```
 **200 OK**
 ```json
 {
-  "id": "v-010",
+  "id": "1",
   "cliente": "Ana Gómez",
   "vendedor": "Marcos Díaz",
-  "estado": "produccion",
+  "estado": "instalada",
   "fechaPedidoFabrica": "2025-10-12"
 }
 ```
 
 ### `DELETE /api/ventas/:id`
-**204 No Content** (sin cuerpo)
+**200 Venta borrada**
 
 ---
 
