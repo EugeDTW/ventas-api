@@ -13,7 +13,7 @@ Incluye:
 
 - Servicios de reportes sobre fechas de instalación.
 
-P- ersistencia en memoria con datos semilla.
+- Persistencia en memoria con datos semilla.
 
 - Backend en Node.js + Express.
 
